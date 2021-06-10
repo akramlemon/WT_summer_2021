@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Registration Form </title>
+</head>
+
+<body>
+    <table>
+        <h1>Registration Form</h1>
+        <form method="POST" action="#">
+            <tr>
+                <td> <label for="Full_Name ">Full Name : </label> </td>
+                <td><input name="Full_Name" type="text" id="Full_Name"></td>
+            </tr>
+            <tr>
+                <td> <label for="Email ">Email : </label> </td>
+                <td><input name="Email" type="text" id="Email"></td>
+            </tr>
+            <tr>
+                <td> <label for="Password ">Password : </label> </td>
+                <td><input name="Password" type="password" id="Password"></td>
+            </tr>
+            <tr>
+                <td> <label for="Comment ">Comment : </label> </td>
+                <td><textarea rows="8" cols="40" name="comment" form="Comment  Here "> </textarea></td>
+            </tr>
+            <tr>
+                <td> <label>Gender : </label> </td>
+                <td>
+                    <input type="radio" id="male" name="gender" value="male">
+                    <label for="male">Male</label>
+                    <input type="radio" id="female" name="gender" value="female">
+                    <label for="female">Female</label>
+                    <input type="radio" id="other" name="gender" value="other">
+                    <label for="other">Other</label>
+                </td>
+            </tr>
+            <tr>
+                <td> <label>Please Choose a Hobby : </label> </td>
+                <td>
+                    <label for="value1">Singing</label>
+                    <input type="checkbox" id="value1" name="value1" value="Singing">
+                    <label for="value1">Singing</label>
+                    <input type="checkbox" id="value2" name="value2" value="Dancing">
+                    <label for="value2">Dancing</label>
+                    <input type="checkbox" id="value3" name="value3" value="Reading">
+                    <label for="value3"> Reading</label>
+                </td>
+            </tr>
+            <tr>
+                <td> <label for="file ">Please Choose a File : </label> </td>
+                <td><input type="file" id="file"></td>
+            </tr>
+            <tr>
+                <td> <input type="submit" name="Submit">
+                    <input type="reset" name="Reset">
+                </td>
+            </tr>
+        </form>
+    </table>
+
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $name = $_POST['Full_Name'] ?? null;
+        $email = $_POST['Email'] ?? null;
+        $password = $_POST['Password'] ?? null;
+        $comment = $_POST['comment'] ?? null;
+        $gender = $_POST['gender'] ?? null;
+        $singing = $_POST['value1'] ?? null;
+        $dancing = $_POST['value2'] ?? null;
+        $reading = $_POST['value3'] ?? null;
+
+        $errors = [];
+        if (!$name || !$email || !$password || !$gender)
+            array_push($errors, "All information is required");
+        if (strpos($email, '@') == false)
+            array_push($errors, "Email is not valid");
+        if (strlen($password) < 6)
+            array_push($errors, "Password is too small");
+    }
+    ?>
+
+    <?php if (!empty($errors)) : ?>
+        <div>
+            <?php foreach ($errors as $error) : ?>
+                <h3 style="color:red"><?php echo $error ?></h3>
+            <?php endforeach ?>
+        </div>
+    <?php endif ?>
+
+
+</body>
+
+</html>
